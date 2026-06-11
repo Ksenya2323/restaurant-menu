@@ -1,14 +1,56 @@
-const API = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnRPqpx2LkPeMcyX7WHEN4CBng7eh2nTGnjuPy0gt52Xnf6_rS1NnoJTctRS1C_3VsrK459bzc3Ic6WJ6Zx99-qbDstEfuEVcD52LU3WmmM63-n2ZbzmxA5g-w9OLJmgdu5-jBWDXUecsk_xEPFkHyQb_-ePgm-5cFepKtvX4JjwgM8Tew3yOL9Xt4_WZmW8JXI3eNxSWMKttk7oJ2j9M1P5QSAm156bs9BaodLoMLQhJfBt9tvyFbPfZEaJOBb2bij7XH1C1WWWIdSfMSqPnfian4ofPg&lib=Mb3uDB82ItmwYDqG0e0LtNf_xtrtDc7k6'
+const API = 'https://script.google.com/macros/s/AKfycbzkwYMazwXGWbK1sLAKcM0Dstr5Oym20xO2fnqhT1-JErlWJQtIAwK5urGfBuO3QDX/exec';
 
-// получить все блюда
+// Получить все блюда
 async function getAllMeals() {
-    const response = await fetch(API + '&type=all');
-    const data = await response.json();
-
-    console.log(data);
+    try {
+        const response = await fetch(API + '&type=all');
+        const data = await response.json();
+        console.log("Все блюда:", data);
+    } catch (error) {
+        console.error("Ошибка при получении всех блюд:", error);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-    document.getElementById("main-btn").addEventListener("click", getAllMeals)
-})
+// Получить конкретное блюдо (исправлен params и знак &)
+async function getMeal(id) {
+    try {
+        let url = API + "&type=meal&id=" + id; // Используем id и соединяем через &
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log("Блюдо:", data);
+        // Здесь создавайте DOM-элементы
+    } catch (error) {
+        console.error("Ошибка в getMeal:", error);
+    }
+}
 
+// Получить рекомендации (исправлен знак &)
+async function getRecommended(id) {
+    try {
+        let url = API + "&type=recommendations&id=" + id; // Соединяем через &
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log("Рекомендации:", data);
+        // Здесь создавайте DOM-элементы
+    } catch (error) {
+        console.error("Ошибка в getRecommended:", error);
+    }
+}
+
+async function btnClickHandler() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+        console.warn("Предупреждение: В адресной строке (URL) отсутствует параметр ?id=");
+        // Если id нет, можно, например, вызвать getAllMeals()
+        return;
+    }
+
+    getMeal(id);
+    getRecommended(id);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("main-btn").addEventListener("click", btnClickHandler);
+});
