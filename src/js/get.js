@@ -27,7 +27,7 @@ async function loadMenu() {
     try {
         const result = await getAllMeals();
 
-        renderSidebar(result.data);
+        renderSidebar();
 
         renderTopCategories(result.data);
 
@@ -44,28 +44,67 @@ async function loadMenu() {
 // SIDEBAR
 // ===================================
 
-function renderSidebar(categories) {
+function renderSidebar() {
     const container = document.getElementById('sidebar-nav');
 
-    container.innerHTML = '';
+    container.innerHTML = `
+    
+        <button class="sidebar-btn" id="menu-btn">
+            Меню
+        </button>
 
-    categories.forEach(category => {
-        const button = document.createElement('button');
+        <div class="sidebar-group">
 
-        button.textContent = category.name;
+            <button class="sidebar-btn" id="entertainment-btn">
+                Развлечения
+            </button>
 
-        button.addEventListener('click', () => {
-            document
-                .getElementById(`category-${category.id}`)
-                .scrollIntoView({
-                    behavior: 'smooth'
-                });
-        });
+            <div class="submenu" id="submenu">
 
-        container.appendChild(button);
+                <button class="sidebar-btn submenu-btn">
+                    Игры
+                </button>
+
+                <button class="sidebar-btn submenu-btn">
+                    Квизы
+                </button>
+
+                <button class="sidebar-btn submenu-btn">
+                    Караоке
+                </button>
+
+            </div>
+
+        </div>
+
+        <button class="sidebar-btn" id="about-btn">
+            О ресторане
+        </button>
+    `;
+
+    // раскрытие второго уровня
+
+    const entertainmentBtn =
+        document.getElementById('entertainment-btn');
+
+    const submenu =
+        document.getElementById('submenu');
+
+    entertainmentBtn.addEventListener('click', () => {
+        submenu.classList.toggle('open');
     });
-}
 
+    // переход к меню
+
+    document
+        .getElementById('menu-btn')
+        .addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+}
 // ===================================
 // TOP CATEGORIES
 // ===================================

@@ -14,31 +14,92 @@ body {
 
 .sidebar {
     width: 300px;
-    min-height: 100vh;
-    background: #e5e5e5;
+    height: 100vh;
+    z-index: 2000;
+
+    position: sticky;
+    top: 0;
+
+    background: #dcdcdc;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
     padding: 20px;
 }
 
-.sidebar button {
+.sidebar-nav {
+    flex: 1;
+}
+
+.sidebar-group {
+    position: relative;
+}
+
+.sidebar-btn {
     width: 100%;
+
     padding: 14px;
+
     margin-bottom: 10px;
 
     border: 1px solid #999;
+
     background: white;
+
     cursor: pointer;
+
     text-align: left;
 }
 
-.cart {
-    padding: 15px;
-    border: 1px solid #999;
+/* второй уровень */
+
+.submenu {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 300px;
+
+    width: 260px;
+    height: 100vh;
+
+    padding: 20px 12px;
+
+    background: #dcdcdc;
+
+    z-index: 1000;
+}
+
+.submenu.open {
+    display: block;
+    background: #eeeeee;
+}
+
+.submenu-btn {
+    width: 100%;
+
     background: white;
+
+    border: 1px solid #999;
+
+    margin-bottom: 10px;
+}
+
+/* кнопка заказа */
+
+.cart {
+    margin-top: auto;
+
+    padding: 15px;
+
+    border: 1px solid #999;
+
+    background: white;
+
+    position: sticky;
+    bottom: 20px;
 }
 
 /* CONTENT */
