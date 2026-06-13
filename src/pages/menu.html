@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>Меню</title>
+    <link rel="stylesheet" href="../css/menu.css" />
 </head>
 
 <body>
-    <button id="main-btn">Сделать запрос</button>
-    <div id="status"></div>
-    <div id="meals"></div>
 
-    <script src="../js/data.js"></script>
+    <aside class="sidebar">
+        <nav id="sidebar-nav"></nav>
+
+        <div class="cart">
+            Мой заказ
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <div id="status"></div>
+
+        <div id="top-categories"></div>
+
+        <div id="categories"></div>
+
+    </main>
+
+    <script src="../js/get.js"></script>
 
 </body>
+
 </html>
